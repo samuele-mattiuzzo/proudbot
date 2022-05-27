@@ -31,5 +31,55 @@ def message_helper(message, say):
             "- pride facts\n"
     say(message)
 
+# Listens to incoming messages that contain "pride facts"
+@app.message("pride facts")
+def message_pride_facts(message, say):
+    say(
+        blocks = [
+            {
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": f"Hey there <@{message['user']}>!"},
+            },
+            {
+                "type": "actions",
+                "block_id": "actionblock789",
+                "elements": [
+                    {
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Tell me about John Amaechi"
+                        },
+                        "style": "primary",
+                        "value": "john_info",
+                        "action_id": "john_info"
+                    },
+                    {
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Tell me about Sister Rosetta Tharpe"
+                        },
+                        "style": "primary",
+                        "value": "sister_info",
+                        "action_id":"sister_info"
+                    }
+                ]
+            }
+        ]
+    )
+
+@app.action("john_info")
+def john_info_click(body, ack, say):
+    ack()
+    john_text = "John Uzoma Ekwugha Amaechi, OBE (/əˈmeɪtʃi/; born 26 November 1970) is a British-American psychologist, consultant and former professional basketball player. He played college basketball at Vanderbilt and Penn State, and professional basketball in the National Basketball Association (NBA). Amaechi also played in France, Greece, Italy, and the United Kingdom. Since retiring from basketball, Amaechi has worked as a psychologist and consultant, establishing his company Amaechi Performance Systems."
+    say(john_text)
+
+@app.action("sister_info")
+def sister_info_click(body, ack, say):
+    ack()
+    sister_text = 'Sister Rosetta Tharpe (born Rosetta Nubin, March 20, 1915 – October 9, 1973)[2] was an American singer and guitarist. She first gained popularity in the 1930s and 1940s with her gospel recordings, characterized by a unique mixture of spiritual lyrics and electric guitar. She was the first great recording star of gospel music, and was among the first gospel musicians to appeal to rhythm and blues and rock and roll audiences, later being referred to as "the original soul sister"' 
+    say(sister_text)
+
 if __name__ == "__main__":
     SocketModeHandler(app, SLACK_APP_TOKEN).start()
