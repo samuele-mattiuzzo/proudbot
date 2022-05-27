@@ -1,5 +1,5 @@
 import configparser
-import os
+import datetime
 
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
@@ -16,6 +16,8 @@ SLACK_BOT_TOKEN = str(conf.get('ACCESS', 'SLACK_BOT_TOKEN'))
 # Initializes your app with your bot token and socket mode handler
 app = App(token=SLACK_BOT_TOKEN)
 
+## Listeners
+
 # Listens to incoming messages that contain "hello"
 @app.message("hello")
 def message_hello(message, say):
@@ -27,8 +29,19 @@ def message_hello(message, say):
 def message_helper(message, say):
     message = f"Hey there <@{message['user']}>! Try these commands maybe?\n" + \
             "- hello\n" + \
-            "- when is pride month?\n" + \
+            "- when is pride parade?\n" + \
             "- pride facts\n"
+    say(message)
+
+# Listens to incoming messages that contain 'when is pride parade'
+@app.message("when is pride parade")
+def message_pride_parade(mesage, say):
+    pride_day = datetime.date(2022,7,2)
+    message = "The London Pride parade is on {}/{}/{}".format(
+        pride_day.day,
+        pride_day.month,
+        pride_day.year
+    )
     say(message)
 
 # Listens to incoming messages that contain "pride facts"
@@ -68,6 +81,9 @@ def message_pride_facts(message, say):
             }
         ]
     )
+
+
+## Actions
 
 @app.action("john_info")
 def john_info_click(body, ack, say):
