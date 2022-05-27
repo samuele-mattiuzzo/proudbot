@@ -22,5 +22,14 @@ def message_hello(message, say):
     # say() sends a message to the channel where the event was triggered
     say(f"Hey there <@{message['user']}>! :partyparrot:")
 
+# Listens to incoming messages that contain "help"
+@app.message("help")
+def message_helper(message, say):
+    message = f"Hey there <@{message['user']}>! Try these commands maybe?\n" + \
+            "- hello\n" + \
+            "- when is pride month?\n" + \
+            "- pride facts\n"
+    say(message)
+
 if __name__ == "__main__":
     SocketModeHandler(app, SLACK_APP_TOKEN).start()
