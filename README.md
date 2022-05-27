@@ -9,5 +9,6 @@
 3. Create a virtualenv `python3 -m venv .env`
 4. Activate the virtualenv `source .env/bin/activate`
 5. Install the dependencies `python3 -m pip install -r requirements.txt`
+6. Create a local file `config.ini` matching the format of config.ini.example in root. Add your tokens, etc. here.
 
  
