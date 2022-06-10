@@ -19,12 +19,16 @@ app = App(token=SLACK_BOT_TOKEN)
 ## Listeners
 
 # Listens to incoming messages that contain "hello"
-@app.message("hello")
-def message_hello(message, say):
+@app.command("/hello")
+def message_hello(ack, say, body):
+    
     # say() sends a message to the channel where the event was triggered
-    say(f"Hey there <@{message['user']}>! :partyparrot:")
+    user_id = body["user_id"]
+    say(f"Hey there <@{user_id}>! :partyparrot:")
+    ack()
 
 # Listens to incoming messages that contain "help"
+@app.event("app_mention")
 @app.message("help")
 def message_helper(message, say):
     message = f"Hey there <@{message['user']}>! Try these commands maybe?\n" + \
@@ -34,6 +38,7 @@ def message_helper(message, say):
     say(message)
 
 # Listens to incoming messages that contain 'when is pride parade'
+@app.event("app_mention")
 @app.message("when is pride parade")
 def message_pride_parade(mesage, say):
     pride_day = datetime.date(2022,7,2)
@@ -45,6 +50,7 @@ def message_pride_parade(mesage, say):
     say(message)
 
 # Listens to incoming messages that contain "pride facts"
+@app.event("app_mention")
 @app.message("pride facts")
 def message_pride_facts(message, say):
     say(
