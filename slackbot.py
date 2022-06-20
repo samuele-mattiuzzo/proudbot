@@ -1,8 +1,10 @@
+#!/usr/bin/python3
 import configparser
 import datetime
 
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
+from slack_bolt.context.say import say
 
 # Bot and App tokens
 SLACK_BOT_TOKEN = None
@@ -19,28 +21,30 @@ app = App(token=SLACK_BOT_TOKEN)
 ## Listeners
 
 # Listens to incoming messages that contain "hello"
-@app.command("/hello")
+@app.command("/proudbot")
 def message_hello(ack, say, body):
-    
-    # say() sends a message to the channel where the event was triggered
+    text = body["text"]
     user_id = body["user_id"]
-    say(f"Hey there <@{user_id}>! :partyparrot:")
+    if text == "hello":
+        # say() sends a message to the channel where the event was triggered
+        say(f"Hey there <@{user_id}>! :partyparrot:")
+    else:
+        message = message_helper(user_id)
+        say(message)
     ack()
+    
 
 # Listens to incoming messages that contain "help"
-@app.event("app_mention")
-@app.message("help")
-def message_helper(message, say):
-    message = f"Hey there <@{message['user']}>! Try these commands maybe?\n" + \
+# @app.message("help")
+def message_helper(user_id):
+    return f"Hey there <@{user_id}>! Try these commands maybe?\n" + \
             "- hello\n" + \
             "- when is pride parade?\n" + \
             "- pride facts\n"
-    say(message)
 
 # Listens to incoming messages that contain 'when is pride parade'
-@app.event("app_mention")
 @app.message("when is pride parade")
-def message_pride_parade(mesage, say):
+def message_pride_parade(message, say):
     pride_day = datetime.date(2022,7,2)
     message = "The London Pride parade is on {}/{}/{}".format(
         pride_day.day,
@@ -50,7 +54,6 @@ def message_pride_parade(mesage, say):
     say(message)
 
 # Listens to incoming messages that contain "pride facts"
-@app.event("app_mention")
 @app.message("pride facts")
 def message_pride_facts(message, say):
     say(
