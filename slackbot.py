@@ -28,6 +28,7 @@ def dispatcher(ack, say, body):
     elif text == "when is pride parade?":
         message = message_pride_parade()
     elif text == "pride facts":
+        # TODO: this needs a bit or refactoring
         message = ""
         message_pride_facts(user_id, say)
     else:
