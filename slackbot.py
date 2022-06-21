@@ -1,10 +1,13 @@
 #!/usr/bin/python3
 import configparser
 import datetime
+import logging
 
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_bolt.context.say import say
+
+log = logging.getLogger(__name__)
 
 # Bot and App tokens
 SLACK_BOT_TOKEN = None
@@ -101,10 +104,10 @@ def create_pride_facts_button(name):
                     "type": "plain_text",
                     "text": f"Tell me about {name}"
                 },
-                    "style": "primary",
-                    "value": f"{button_id}_info",
-                    "action_id": f"{button_id}_info"
-                }
+                "style": "primary",
+                "value": f"{button_id}_info",
+                "action_id": f"{button_id}_info"
+            }
     return button
 
 def create_id(string):
@@ -117,6 +120,7 @@ mock_pride_facts_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit
 # TODO: try to make this dynamic function that just takes a person and then displays some info about the person
 @app.action("angelica_ross_info")
 def angelica_ross_info_click(body, ack, say):
+    log.debug("OK")
     ack()
     info_text = mock_pride_facts_text
     say(info_text)
