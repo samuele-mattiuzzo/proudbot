@@ -22,20 +22,20 @@ app = App(token=SLACK_BOT_TOKEN)
 
 # Listens to incoming messages that contain "hello"
 @app.command("/proudbot")
-def message_hello(ack, say, body):
+def dispatcher(ack, say, body):
     text = body["text"]
     user_id = body["user_id"]
     if text == "hello":
-        # say() sends a message to the channel where the event was triggered
-        say(f"Hey there <@{user_id}>! :partyparrot:")
+        message = message_hello(user_id)
+    elif text == "when is pride parade?":
+        message = message_pride_parade()
     else:
         message = message_helper(user_id)
-        say(message)
+    say(message)
     ack()
     
 
 # Listens to incoming messages that contain "help"
-# @app.message("help")
 def message_helper(user_id):
     return f"Hey there <@{user_id}>! Try these commands maybe?\n" + \
             "- hello\n" + \
@@ -43,15 +43,17 @@ def message_helper(user_id):
             "- pride facts\n"
 
 # Listens to incoming messages that contain 'when is pride parade'
-@app.message("when is pride parade")
-def message_pride_parade(message, say):
+def message_pride_parade():
     pride_day = datetime.date(2022,7,2)
     message = "The London Pride parade is on {}/{}/{}".format(
         pride_day.day,
         pride_day.month,
         pride_day.year
     )
-    say(message)
+    return message
+
+def message_hello(user_id):
+    return "Hey there <@{user_id}>! :partyparrot:"
 
 # Listens to incoming messages that contain "pride facts"
 @app.message("pride facts")
