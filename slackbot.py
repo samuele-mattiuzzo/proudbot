@@ -117,7 +117,7 @@ def create_id(string):
 
 mock_pride_facts_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
-# TODO: try to make this dynamic function that just takes a person and then displays some info about the person
+# TODO: try to make this a dynamic function that just takes a person and then displays some info about the person instead of having multiple functions
 @app.action("angelica_ross_info")
 def angelica_ross_info_click(body, ack, say):
     log.debug("OK")
