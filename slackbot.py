@@ -94,7 +94,7 @@ def message_pride_facts(user_id, say):
     )
 
 def create_pride_facts_button(name):
-    button_id = name.lower().replace(" ", "_")
+    button_id = create_id(name)
     button = {
                 "type": "button",
                 "text": {
@@ -106,6 +106,9 @@ def create_pride_facts_button(name):
                     "action_id": f"{button_id}_info"
                 }
     return button
+
+def create_id(string):
+    return string.lower().replace(" ", "_")
 
 ## Actions
 
