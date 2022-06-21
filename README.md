@@ -23,4 +23,4 @@
 ### Running the bot
 
 1. Create a local file `config.ini` matching the format of config.ini.example in root. Add your tokens, etc. here.
-2. Run the python script `python3 slackbot.py`
+2. Run the python script `python3 slackbot.py` (Linux/Mac) or `python slackbot.py` (Windows)
