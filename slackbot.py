@@ -28,6 +28,7 @@ def dispatcher(ack, say, body):
     elif text == "when is pride parade?":
         message = message_pride_parade()
     elif text == "pride facts":
+        message = ""
         message_pride_facts(user_id, say)
     else:
         message = message_helper(user_id)
@@ -69,16 +70,7 @@ def message_pride_facts(user_id, say):
                 "type": "actions",
                 "block_id": "actionblock789",
                 "elements": [
-                    {
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "Tell me about John Amaechi"
-                        },
-                        "style": "primary",
-                        "value": "john_info",
-                        "action_id": "john_info"
-                    },
+                    create_button("John Amaechi"),
                     {
                         "type": "button",
                         "text": {
@@ -94,10 +86,23 @@ def message_pride_facts(user_id, say):
         ]
     )
 
+def create_button(name):
+    button_id = name.strip().lower()
+    button = {
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": f"Tell me about {name}"
+                },
+                    "style": "primary",
+                    "value": f"{button_id}_info",
+                    "action_id": f"{button_id}_info"
+                }
+    return button
 
 ## Actions
 
-@app.action("john_info")
+@app.action("johnamaechi_info")
 def john_info_click(body, ack, say):
     ack()
     john_text = "John Uzoma Ekwugha Amaechi, OBE (/əˈmeɪtʃi/; born 26 November 1970) is a British-American psychologist, consultant and former professional basketball player. He played college basketball at Vanderbilt and Penn State, and professional basketball in the National Basketball Association (NBA). Amaechi also played in France, Greece, Italy, and the United Kingdom. Since retiring from basketball, Amaechi has worked as a psychologist and consultant, establishing his company Amaechi Performance Systems."
