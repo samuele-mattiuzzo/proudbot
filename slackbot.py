@@ -71,14 +71,14 @@ def message_pride_facts(user_id, say):
                 "type": "actions",
                 "block_id": "actionblock789",
                 "elements": [
-                    create_button("John Amaechi"),
-                    create_button("Sister Rosetta Tharpe"),
+                    create_pride_facts_button("John Amaechi"),
+                    create_pride_facts_button("Sister Rosetta Tharpe"),
                 ]
             }
         ]
     )
 
-def create_button(name):
+def create_pride_facts_button(name):
     button_id = name.lower().replace(" ", "_")
     button = {
                 "type": "button",
