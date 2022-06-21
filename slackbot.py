@@ -19,8 +19,6 @@ SLACK_BOT_TOKEN = str(conf.get('ACCESS', 'SLACK_BOT_TOKEN'))
 app = App(token=SLACK_BOT_TOKEN)
 
 ## Listeners
-
-# Listens to incoming messages that contain "hello"
 @app.command("/proudbot")
 def dispatcher(ack, say, body):
     text = body["text"]
@@ -52,10 +50,11 @@ def message_pride_parade():
     )
     return message
 
+# Listens to incoming messages that contain 'hello'
 def message_hello(user_id):
     return "Hey there <@{user_id}>! :partyparrot:"
 
-# Listens to incoming messages that contain "pride facts"
+# Listens to incoming messages that contain 'pride facts'
 @app.message("pride facts")
 def message_pride_facts(message, say):
     say(
