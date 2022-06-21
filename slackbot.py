@@ -27,6 +27,8 @@ def dispatcher(ack, say, body):
         message = message_hello(user_id)
     elif text == "when is pride parade?":
         message = message_pride_parade()
+    elif text == "pride facts":
+        message_pride_facts(user_id, say)
     else:
         message = message_helper(user_id)
     say(message)
@@ -56,12 +58,12 @@ def message_hello(user_id):
 
 # Listens to incoming messages that contain 'pride facts'
 @app.message("pride facts")
-def message_pride_facts(message, say):
+def message_pride_facts(user_id, say):
     say(
         blocks = [
             {
                 "type": "section",
-                "text": {"type": "mrkdwn", "text": f"Hey there <@{message['user']}>!"},
+                "text": {"type": "mrkdwn", "text": f"Hey there <@{user_id}>!"},
             },
             {
                 "type": "actions",
