@@ -36,7 +36,8 @@ def dispatcher(ack, say, body):
         message_pride_facts(user_id, say)
     else:
         message = message_helper(user_id)
-    say(message)
+    if message != "": 
+        say(message)
     ack()
     
 
