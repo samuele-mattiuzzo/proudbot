@@ -220,7 +220,16 @@ def sylvester_info_click(body, ack, say):
 def zanele_muholi_info_click(body, ack, say):
     ack()
     info_text = mock_pride_facts_text
-    say(info_text)             
+    say(info_text)   
+
+#Handle messages that are not for pridebot
+@app.event("message")
+def handle_message_events(body, logger):
+    # TODO: remove the print - but do we want to change the way proudbot is listening?
+    # Currently it's listening to all messages
+    print("body", body)
+    logger.info(body)
+          
 
 if __name__ == "__main__":
     SocketModeHandler(app, SLACK_APP_TOKEN).start()
