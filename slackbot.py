@@ -59,7 +59,7 @@ def message_pride_parade():
 
 # Listens to incoming messages that contain 'hello'
 def message_hello(user_id):
-    return "Hey there <@{user_id}>! :partyparrot:"
+    return f"Hey there <@{user_id}>! :partyparrot:"
 
 # Listens to incoming messages that contain 'pride facts'
 @app.message("pride facts")
