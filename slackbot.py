@@ -221,13 +221,10 @@ def zanele_muholi_info_click(body, ack, say):
     info_text = mock_pride_facts_text
     say(info_text)   
 
-#Handle messages that are not for pridebot
+#Handle messages that are not for proudbot
 @app.event("message")
 def handle_message_events(body, logger):
-    # TODO: remove the print - but do we want to change the way proudbot is listening?
-    # Currently it's listening to all messages
-    print("body", body)
-    logger.info(body)
+    pass
           
 
 if __name__ == "__main__":
