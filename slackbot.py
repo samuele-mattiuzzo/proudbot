@@ -42,10 +42,10 @@ def dispatcher(ack, say, body):
 
 # Listens to incoming messages that contain "help"
 def message_helper(user_id):
-    return f"Hey there <@{user_id}>! Try these commands maybe?\n" + \
-            "- hello\n" + \
-            "- when is pride parade?\n" + \
-            "- pride facts\n"
+    return f"The following commands are available\n" + \
+            "`/proudbot hello` - Get a personalised greeting from ProudBot\n" + \
+            "`/proudbot when is pride parade?` - Get the date of the next pride parade\n" + \
+            "`/proudbot pride facts` - Get facts about various LGBTQ+ advocates and activists\n"
 
 # Listens to incoming messages that contain 'when is pride parade'
 def message_pride_parade():
