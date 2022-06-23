@@ -1,13 +1,10 @@
 #!/usr/bin/python3
 import configparser
 import datetime
-import logging
 
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_bolt.context.say import say
-
-log = logging.getLogger(__name__)
 
 # Bot and App tokens
 SLACK_BOT_TOKEN = None
@@ -96,6 +93,9 @@ def message_pride_facts(user_id, say):
         ]
     )
 
+def create_id(string):
+    return string.lower().replace(" ", "_")
+
 def create_pride_facts_button(name):
     button_id = create_id(name)
     button = {
@@ -110,9 +110,6 @@ def create_pride_facts_button(name):
             }
     return button
 
-def create_id(string):
-    return string.lower().replace(" ", "_")
-
 ## Actions
 
 def read_file(person_name):
@@ -124,7 +121,6 @@ mock_pride_facts_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit
 # TODO: try to make this a dynamic function that just takes a person and then displays some info about the person instead of having multiple functions
 @app.action("angelica_ross_info")
 def angelica_ross_info_click(body, ack, say):
-    log.debug("OK")
     ack()
     info_text = mock_pride_facts_text
     say(info_text)
@@ -156,7 +152,7 @@ def james_baldwin_info_click(body, ack, say):
 @app.action("john_amaechi_info")
 def john_info_click(body, ack, say):
     ack()
-    info_text = "John Uzoma Ekwugha Amaechi, OBE (/əˈmeɪtʃi/; born 26 November 1970) is a British-American psychologist, consultant and former professional basketball player. He played college basketball at Vanderbilt and Penn State, and professional basketball in the National Basketball Association (NBA). Amaechi also played in France, Greece, Italy, and the United Kingdom. Since retiring from basketball, Amaechi has worked as a psychologist and consultant, establishing his company Amaechi Performance Systems."
+    info_text = read_file("john_amaechi_info")
     say(info_text)    
 
 @app.action("justin_fashnu_info")
