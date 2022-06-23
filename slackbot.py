@@ -94,18 +94,18 @@ def message_pride_facts(user_id, say):
         ]
     )
 
-def create_id(string):
-    return string.lower().replace(" ", "_")
+def create_person_id(name):
+    return name.lower().replace(" ", "_")
 
-def read_file(person_name):
+def read_file(person_id):
     try:
-        with open('peoplez/' + person_name + '.md', 'r') as f:
+        with open('peoplez/' + person_id + '.md', 'r') as f:
             return f.read()
     except FileNotFoundError:
         return MOCK_PRIDE_FACTS_TEXT
 
 def create_pride_facts_button(name):
-    button_id = create_id(name)
+    button_id = create_person_id(name)
     button = {
                 "type": "button",
                 "text": {
@@ -139,8 +139,8 @@ def create_pride_facts_button(name):
 @app.action("zanele_muholi_info")
 def person_info_click(body, ack, say):
     ack()
-    person = body['actions'][0]['value']
-    info_text = read_file(person)
+    person_id = body['actions'][0]['value']  
+    info_text = read_file(person_id)
     say(info_text)  
 
 
