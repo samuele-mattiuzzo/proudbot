@@ -137,7 +137,6 @@ def create_pride_facts_button(name):
     return button
 
 ## Actions
-
 @app.action("angelica_ross_info")
 @app.action("anna_arriola_info")
 @app.action("edith_windsor_info")
