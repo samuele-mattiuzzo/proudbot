@@ -33,6 +33,9 @@ def dispatcher(ack, say, body):
     elif text == "pride facts":
         message = ""
         message_pride_facts(user_id, say)
+    elif text == "pride quote":
+        message = ""
+        message_pride_quote(say)
     else:
         message = message_helper(user_id)
     if message != "": 
@@ -56,6 +59,20 @@ def message_pride_parade():
         pride_day.year
     )
     return message
+
+# Listens to incoming messages that contain 'pride quote'
+def message_pride_quote(say):
+    say(
+        blocks = [
+            {
+                "type": "section",
+                "text": {
+				    "type": "mrkdwn",
+				    "text": "\n>_Lorem ipsum dolor sit amet, consectetur adipiscing elit_\n>\nby *John Doe*"
+			    }
+            }
+        ]
+    )
 
 # Listens to incoming messages that contain 'hello'
 def message_hello(user_id):
