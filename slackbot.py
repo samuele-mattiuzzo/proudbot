@@ -5,6 +5,7 @@ import datetime
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_bolt.context.say import say
+from helpers import create_person_id, create_pride_facts_button, read_file
 
 # Bot and App tokens
 SLACK_BOT_TOKEN = None
@@ -14,8 +15,6 @@ conf = configparser.ConfigParser()
 conf.read('config.ini')
 SLACK_APP_TOKEN = str(conf.get('ACCESS', 'SLACK_APP_TOKEN'))
 SLACK_BOT_TOKEN = str(conf.get('ACCESS', 'SLACK_BOT_TOKEN'))
-
-MOCK_PRIDE_FACTS_TEXT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 # Initializes your app with your bot token and socket mode handler
 app = App(token=SLACK_BOT_TOKEN)
@@ -111,30 +110,6 @@ def message_pride_facts(user_id, say):
             }
         ]
     )
-
-def create_person_id(name):
-    return name.lower().replace(" ", "_")
-
-def read_file(person_id):
-    try:
-        with open('peoplez/' + person_id + '.md', 'r') as f:
-            return f.read()
-    except FileNotFoundError:
-        return MOCK_PRIDE_FACTS_TEXT
-
-def create_pride_facts_button(name):
-    button_id = create_person_id(name)
-    button = {
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": f"Tell me about {name}"
-                },
-                "style": "primary",
-                "value": f"{button_id}_info",
-                "action_id": f"{button_id}_info"
-            }
-    return button
 
 ## Actions
 @app.action("angelica_ross_info")
