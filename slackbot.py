@@ -5,7 +5,7 @@ import datetime
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_bolt.context.say import say
-from helpers import create_person_id, create_pride_facts_button, read_file
+from helpers import create_person_id, create_pride_facts_button, read_file, text_matches
 
 # Bot and App tokens
 SLACK_BOT_TOKEN = None
@@ -25,14 +25,14 @@ app = App(token=SLACK_BOT_TOKEN)
 def dispatcher(ack, say, body):
     text = body["text"]
     user_id = body["user_id"]
-    if text == "hello":
+    if text_matches(text, "hello"):
         message = message_hello(user_id)
-    elif text == "when is pride parade?":
+    elif text_matches(text, "when is pride parade?"):
         message = message_pride_parade()
-    elif text == "pride facts":
+    elif text_matches(text, "pride facts"):
         message = ""
         message_pride_facts(user_id, say)
-    elif text == "pride quote":
+    elif text_matches(text, "pride quote"):
         message = ""
         message_pride_quote(say)
     else:
