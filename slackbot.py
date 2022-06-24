@@ -20,7 +20,6 @@ SLACK_BOT_TOKEN = str(conf.get('ACCESS', 'SLACK_BOT_TOKEN'))
 app = App(token=SLACK_BOT_TOKEN)
 
 ## Listeners
-# TODO: add regex for texts, so that we do stuff even when people are not 100% what they type
 @app.command("/proudbot")
 def dispatcher(ack, say, body):
     text = body["text"]
