@@ -24,3 +24,7 @@
 
 1. Create a local file `config.ini` matching the format of config.ini.example in root. Add your tokens, etc. here.
 2. Run the python script `python3 slackbot.py` (Linux/Mac) or `python slackbot.py` (Windows)
+
+### Running the unit tests
+
+Run `python3 -m unittest tests`
