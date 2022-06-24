@@ -29,4 +29,4 @@ def read_file(person_id):
         return MOCK_PRIDE_FACTS_TEXT    
 
 def text_matches(text, match_phrase):
-    return bool(re.search(text, match_phrase, re.IGNORECASE))
+    return bool(re.search(match_phrase, text, re.IGNORECASE))
