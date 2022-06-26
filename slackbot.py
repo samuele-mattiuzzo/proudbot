@@ -5,7 +5,9 @@ import datetime
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_bolt.context.say import say
-from helpers import create_person_id, create_pride_facts_button, read_file, text_matches
+
+from helpers import (create_person_id, create_pride_facts_button, read_file,
+                     text_matches)
 
 # Bot and App tokens
 SLACK_BOT_TOKEN = None
@@ -16,41 +18,43 @@ conf.read('config.ini')
 SLACK_APP_TOKEN = str(conf.get('ACCESS', 'SLACK_APP_TOKEN'))
 SLACK_BOT_TOKEN = str(conf.get('ACCESS', 'SLACK_BOT_TOKEN'))
 
+
 # Initializes your app with your bot token and socket mode handler
 app = App(token=SLACK_BOT_TOKEN)
 
-## Listeners
+
+# Listeners
 @app.command("/proudbot")
 def dispatcher(ack, say, body):
     text = body["text"]
     user_id = body["user_id"]
+    message = ''
     if text_matches(text, "hello"):
         message = message_hello(user_id)
     elif text_matches(text, "when is pride parade?"):
         message = message_pride_parade()
     elif text_matches(text, "pride facts"):
-        message = ""
-        message_pride_facts(user_id, say)
+        message = message_pride_facts(user_id, say)
     elif text_matches(text, "pride quote"):
-        message = ""
-        message_pride_quote(say)
-    else:
+        message = message_pride_quote()
+    elif message == '':
+        # shows the helper
         message = message_helper(user_id)
-    if message != "": 
-        say(message)
+    say(message)
     ack()
-    
+
 
 # Listens to incoming messages that contain "help"
 def message_helper(user_id):
     return f"The following commands are available\n" + \
-            "`/proudbot hello` - Get a personalised greeting from ProudBot\n" + \
-            "`/proudbot when is pride parade?` - Get the date of the next pride parade\n" + \
-            "`/proudbot pride facts` - Get facts about various LGBTQ+ advocates and activists\n"
+        "`/proudbot hello` - Get a personalised greeting from ProudBot\n" + \
+        "`/proudbot when is pride parade?` - Get the date of the next pride parade\n" + \
+        "`/proudbot pride facts` - Get facts about various LGBTQ+ advocates and activists\n"
+
 
 # Listens to incoming messages that contain 'when is pride parade'
 def message_pride_parade():
-    pride_day = datetime.date(2022,7,2)
+    pride_day = datetime.date(2022, 7, 2)
     message = "The London Pride parade is on {}/{}/{}".format(
         pride_day.day,
         pride_day.month,
@@ -58,36 +62,36 @@ def message_pride_parade():
     )
     return message
 
+
 # Listens to incoming messages that contain 'pride quote'
-def message_pride_quote(say):
-    say(
-        blocks = [
-            {
-                "type": "section",
-                "text": {
-				    "type": "mrkdwn",
-				    "text": "\n>_Lorem ipsum dolor sit amet, consectetur adipiscing elit_\n>\nby *John Doe*"
-			    }
+def message_pride_quote():
+    return [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "\n>_Lorem ipsum dolor sit amet, consectetur adipiscing elit_\n>\nby *John Doe*"
             }
-        ]
-    )
+        }
+    ]
+
 
 # Listens to incoming messages that contain 'hello'
 def message_hello(user_id):
     return f"Hey there <@{user_id}>! :partyparrot:"
 
+
 # Listens to incoming messages that contain 'pride facts'
 def message_pride_facts(user_id, say):
-    say(
-        blocks = [
-            {
-                "type": "section",
-                "text": {"type": "mrkdwn", "text": f"Hey there <@{user_id}>!"},
-            },
-            {
-                "type": "actions",
-                "block_id": "actionblock789",
-                "elements": [
+    return [
+        {
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": f"Hey there <@{user_id}>!"},
+        },
+        {
+            "type": "actions",
+            "block_id": "actionblock789",
+            "elements": [
                     create_pride_facts_button("Angelica Ross"),
                     create_pride_facts_button("Anna Arriola"),
                     create_pride_facts_button("Edith Windsor"),
@@ -105,12 +109,12 @@ def message_pride_facts(user_id, say):
                     create_pride_facts_button("Sofia Kovalevskaya"),
                     create_pride_facts_button("Sylvester"),
                     create_pride_facts_button("Zanele Muholi"),
-                ]
-            }
-        ]
-    )
+            ]
+        }
+    ]
 
-## Actions
+
+# Actions
 @app.action("angelica_ross_info")
 @app.action("anna_arriola_info")
 @app.action("edith_windsor_info")
@@ -130,16 +134,16 @@ def message_pride_facts(user_id, say):
 @app.action("zanele_muholi_info")
 def person_info_click(body, ack, say):
     ack()
-    person_id = body['actions'][0]['value']  
+    person_id = body['actions'][0]['value']
     info_text = read_file(person_id)
-    say(info_text)  
+    say(info_text)
 
 
-#Handle messages that are not for proudbot
+# Handle messages that are not for proudbot
 @app.event("message")
 def handle_message_events(body, logger):
     pass
-          
+
 
 if __name__ == "__main__":
     SocketModeHandler(app, SLACK_APP_TOKEN).start()
