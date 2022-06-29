@@ -1,2 +1,4 @@
 slack-bolt==1.14.0
 slack-sdk==3.17.0
+requests
+BeautifulSoup4
