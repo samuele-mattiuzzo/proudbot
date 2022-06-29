@@ -38,7 +38,7 @@ def get_random_page():
 
 def get_random_quote_in_page(base_url, page):
     response = requests.get(str(base_url) + "?page=" + str(page))
-    html_text = BeautifulSoup(response.content, "lxml")
+    html_text = BeautifulSoup(response.content, "html.parser")
     print(html_text.find("h1"))
 
     authors = html_text.findAll("div", attrs={"class": "authorOrTitle"})
