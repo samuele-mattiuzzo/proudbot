@@ -1,1 +1,2 @@
-Lorem ipsum dolor sit amet.
+Angelica Ross (born November 28, 1980) is an American actress, businesswoman, and transgender rights advocate. A self-taught computer programmer, she went on to become founder and CEO of TransTech Social Enterprises, a firm that helps employ transgender people in the tech industry...
+<https://en.wikipedia.org/wiki/Angelica_Ross|Read more on Wikipedia>
