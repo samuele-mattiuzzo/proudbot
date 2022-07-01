@@ -66,15 +66,17 @@ def message_pride_parade():
 # Listens to incoming messages that contain 'pride quote'
 def message_pride_quote():
     quote = get_random_quote()
-    return {"blocks": [
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": f"\n>_{quote['text']}_\n>\nby *{quote['author']}*"
+    return {
+        "blocks":
+        [
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"\n>_{quote['text']}_\n>\nby *{quote['author']}*"
+                }
             }
-        }
-    ]}
+        ]}
 
 
 # Listens to incoming messages that contain 'hello'
@@ -84,15 +86,17 @@ def message_hello(user_id):
 
 # Listens to incoming messages that contain 'pride facts'
 def message_pride_facts(user_id):
-    return {"blocks": [
-        {
-            "type": "section",
-            "text": {"type": "mrkdwn", "text": f"Hey there <@{user_id}>!"},
-        },
-        {
-            "type": "actions",
-            "block_id": "actionblock789",
-            "elements": [
+    return {
+        "blocks":
+        [
+            {
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": f"Hey there <@{user_id}>!"},
+            },
+            {
+                "type": "actions",
+                "block_id": "actionblock789",
+                "elements": [
                     create_pride_facts_button("Angelica Ross"),
                     create_pride_facts_button("Anna Arriola"),
                     create_pride_facts_button("Edith Windsor"),
@@ -110,9 +114,9 @@ def message_pride_facts(user_id):
                     create_pride_facts_button("Sofia Kovalevskaya"),
                     create_pride_facts_button("Sylvester"),
                     create_pride_facts_button("Zanele Muholi"),
-            ]
-        }
-    ]}
+                ]
+            }
+        ]}
 
 
 # Actions
