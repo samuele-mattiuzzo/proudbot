@@ -6,7 +6,7 @@ from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_bolt.context.say import say
 
-from helpers import (create_pride_facts_button, read_file,
+from helpers import (create_pride_facts_button, get_random_quote, read_file,
                      text_matches)
 
 # Bot and App tokens
@@ -65,12 +65,13 @@ def message_pride_parade():
 
 # Listens to incoming messages that contain 'pride quote'
 def message_pride_quote():
+    quote = get_random_quote()
     return {"blocks": [
         {
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "\n>_Lorem ipsum dolor sit amet, consectetur adipiscing elit_\n>\nby *John Doe*"
+                "text": f"\n>_{quote['text']}_\n>\nby *{quote['author']}*"
             }
         }
     ]}
