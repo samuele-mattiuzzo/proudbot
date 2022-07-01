@@ -32,15 +32,18 @@ def text_matches(text, match_phrase):
     return bool(re.search(match_phrase, text, re.IGNORECASE))
 
 def read_json_file(file):
-    f = open(file)
-    data = json.load(f)
-    print(data)
-    f.close()
-    return data
+    try:
+        with open(file) as f:
+            data = json.load(f)
+            return data
+    except FileNotFoundError:
+        return None
 
 def get_random_quote():
     all_quotes = read_json_file("quotes.json")
-    random_quote_id = random.randrange(0, len(all_quotes) - 1)
-    print(random_quote_id)
-    random_quote = all_quotes[random_quote_id]
-    return random_quote
+    
+    if all_quotes:
+        random_quote_id = random.randrange(len(all_quotes))
+        random_quote = all_quotes[random_quote_id]
+        return random_quote
+    return {"text": "No quotes found"}

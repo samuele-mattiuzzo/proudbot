@@ -66,6 +66,7 @@ def message_pride_parade():
 # Listens to incoming messages that contain 'pride quote'
 def message_pride_quote():
     quote = get_random_quote()
+    text = quote['text'] if not quote.get('author') else f"\n>_{quote['text']}_\n>\nby *{quote['author']}*"
     return {
         "blocks":
         [
@@ -73,7 +74,7 @@ def message_pride_quote():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"\n>_{quote['text']}_\n>\nby *{quote['author']}*"
+                    "text": text
                 }
             }
         ]}
