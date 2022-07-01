@@ -6,7 +6,7 @@ from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_bolt.context.say import say
 
-from helpers import (create_person_id, create_pride_facts_button, read_file,
+from helpers import (create_pride_facts_button, read_file,
                      text_matches)
 
 # Bot and App tokens
@@ -34,18 +34,18 @@ def dispatcher(ack, say, body):
     elif text_matches(text, "when is pride parade?"):
         message = message_pride_parade()
     elif text_matches(text, "pride facts"):
-        message = message_pride_facts(user_id, say)
+        message = message_pride_facts(user_id)
     elif text_matches(text, "pride quote"):
         message = message_pride_quote()
     elif message == '':
         # shows the helper
-        message = message_helper(user_id)
+        message = message_helper()
     say(message)
     ack()
 
 
 # Listens to incoming messages that contain "help"
-def message_helper(user_id):
+def message_helper():
     return f"The following commands are available\n" + \
         "`/proudbot hello` - Get a personalised greeting from ProudBot\n" + \
         "`/proudbot when is pride parade?` - Get the date of the next pride parade\n" + \
@@ -82,7 +82,7 @@ def message_hello(user_id):
 
 
 # Listens to incoming messages that contain 'pride facts'
-def message_pride_facts(user_id, say):
+def message_pride_facts(user_id):
     return {"blocks": [
         {
             "type": "section",
