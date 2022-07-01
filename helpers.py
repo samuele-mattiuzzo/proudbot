@@ -28,7 +28,7 @@ def read_md_file(person_id):
         with open('peoplez/' + person_id + '.md', 'r') as f:
             return f.read()
     except FileNotFoundError:
-        return MOCK_PRIDE_FACTS_TEXT    
+        return MOCK_PRIDE_FACTS_TEXT
 
 def text_matches(text, match_phrase):
     return bool(re.search(match_phrase, text, re.IGNORECASE))
