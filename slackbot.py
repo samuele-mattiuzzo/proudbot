@@ -6,7 +6,7 @@ from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from slack_bolt.context.say import say
 
-from helpers import (create_pride_facts_button, get_random_quote, read_file,
+from helpers import (create_pride_facts_button, get_random_quote, read_md_file,
                      text_matches)
 
 # Bot and App tokens
@@ -136,7 +136,7 @@ def message_pride_facts(user_id):
 def person_info_click(body, ack, say):
     ack()
     person_id = body['actions'][0]['value']
-    info_text = read_file(person_id)
+    info_text = read_md_file(person_id)
     say(info_text)
 
 

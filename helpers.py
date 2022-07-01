@@ -23,7 +23,7 @@ def create_pride_facts_button(name):
             }
     return button
 
-def read_file(person_id):
+def read_md_file(person_id):
     try:
         with open('peoplez/' + person_id + '.md', 'r') as f:
             return f.read()
